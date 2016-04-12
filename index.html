@@ -17,5 +17,14 @@
 <p>You can make a painting with your friends. Just start by adding your contribution and wait for others
 on their computers to make it into a masterpiece.</p>
 
+<canvas id="myCanvas" width="500" height="400" style="border:1px solid #000000;">
+</canvas>
+
+<script type="text/javascript">
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "#FF0000";
+ctx.fillRect(0,0,150,75);</script>
+
 </body>
 </html>
