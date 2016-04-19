@@ -7,13 +7,23 @@
   <title>Draw Together</title>
   <meta name="description" content="Draw Together">
 
+  <script src="jquery-1.12.0.min.js">
 
+
+
+
+  </script>
+  <style type="text/css">
+	/*body {background-color: blue;}*/
+</style>
 
 </head>
 
 <body>
 
-<h1>Add your designs to the canvas! Yooooo I'm here</h1>
+
+
+<h1>Add your designs to the canvas! </h1>
 <p>You can make a painting with your friends. Just start by adding your contribution and wait for others
 on their computers to make it into a masterpiece.</p>
 
@@ -21,10 +31,46 @@ on their computers to make it into a masterpiece.</p>
 </canvas>
 
 <script type="text/javascript">
+
+
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
-ctx.fillStyle = "#FF0000";
-ctx.fillRect(0,0,150,75);</script>
+c.addEventListener("click", onClick, false);
+
+
+//general method to draw a rectangle based on location,
+//dimensions, and color
+function drawRectangle(x, y, width, height, color){
+	ctx.fillStyle = color;
+	ctx.fillRect(x,y,width,height);
+}
+
+//mouse event for drawing rectanlges based on x & y coordinates
+function onClick(e) {
+    var element = c;
+    var offsetX = 0, offsetY = 0
+
+    if (element.offsetParent) {
+      do {
+        offsetX += element.offsetLeft;
+        offsetY += element.offsetTop;
+      } while ((element = element.offsetParent));
+    }
+
+    var x = e.pageX - offsetX;
+    var y = e.pageY - offsetY;
+    console.log(x);
+    console.log(y);
+
+    drawRectangle(x, y, 10, 10, "green");
+
+}
+
+</script>
+
+
+
+
 
 </body>
 </html>
