@@ -2,12 +2,11 @@
 
 <html lang="en">
 <head>
+  
   <meta charset="utf-8">
 
   <title>Draw Together</title>
   <meta name="description" content="Draw Together">
-
-  <script src='lib/jquery-1.12.3.min.js'></script>
   
   <style type="text/css">
     
@@ -29,19 +28,15 @@
         padding: 100px;
     }
 
-
   </style>
     
+  <script src='lib/jquery-1.12.3.min.js'></script>  
   <script src='lib/spectrum.js'></script>
   <link rel='stylesheet' href='lib/spectrum.css' />
 
 </head>
 
 <body>
-
-
-
-
 
 <div id="drawing">
     <canvas id="myCanvas"></canvas>
@@ -50,18 +45,18 @@
 <div id="picker">
     <h2>Select color below,<br> then click to paint</h2>
     <input type='text' class="basic"/>
-    <em id='basic-log'></em>
 </div>
 
 <script type="text/javascript">
 
 var curColor = "green"; // curColor is updated color of rectangle
 
-
+// getting element for canvas & set up mouse listener
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
-c.addEventListener("mousemove", onClick, false);
+c.addEventListener("mousemove", onMove, false);
 
+// set width & height for canvas
 c.width  = window.innerWidth * .6;
 c.height = window.innerHeight;
 
@@ -74,7 +69,7 @@ function drawRectangle(x, y, width, height, color){
 }
 
 //mouse event for drawing rectanlges based on x & y coordinates
-function onClick(e) {
+function onMove(e) {
     var element = c;
     var offsetX = 0, offsetY = 0
 
@@ -97,21 +92,12 @@ function onClick(e) {
 $(".basic").spectrum({
     color: "#f00",
     change: function(color) {
-
         console.log("The new color is: " + color.toHexString());
         curColor = color.toHexString();
-
-        // $("#basic-log").text("change called: " + color.toHexString());
     }
 });
 
-    
-
 </script>
-
-
-
-
 
 </body>
 </html>
