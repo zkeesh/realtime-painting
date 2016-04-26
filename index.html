@@ -4,51 +4,65 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Draw Together TESTING</title>
+  <title>Draw Together</title>
   <meta name="description" content="Draw Together">
 
-  <script src="jquery-1.12.0.min.js">
-
-    $(".basic").spectrum({
-    color: "#f00",
-    change: function(color) {
-        $("#basic-log").text("change called: " + color.toHexString());
-    }
-});
-
-
-
-  </script>
+  <script src='lib/jquery-1.12.3.min.js'></script>
+  
   <style type="text/css">
-  canvas{margin:0;
-         border:1px solid #000000;}
-
-    <script src='spectrum.js'></script>
-<link rel='stylesheet' href='spectrum.css' />
-
-</style>
     
+    canvas{
+        margin: 0;
+        border: 1px solid #000000;
+    }
 
+    #drawing{
+        width: 60%;
+        height: 100%;
+        float: left;
+
+    }
+
+    #picker{
+        height: 100%;
+        float: left;
+        padding: 100px;
+    }
+
+
+  </style>
+    
+  <script src='lib/spectrum.js'></script>
+  <link rel='stylesheet' href='lib/spectrum.css' />
 
 </head>
 
 <body>
 
-<h2>Basic Usage</h2>
-<input type='text' class="basic"/>
-<em id='basic-log'></em>
 
-<canvas id="myCanvas">
-</canvas>
+
+
+
+<div id="drawing">
+    <canvas id="myCanvas"></canvas>
+</div>
+
+<div id="picker">
+    <h2>Select color below,<br> then click to paint</h2>
+    <input type='text' class="basic"/>
+    <em id='basic-log'></em>
+</div>
 
 <script type="text/javascript">
+
+var curColor = "green"; // curColor is updated color of rectangle
 
 
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
-c.addEventListener("click", onClick, false);
+c.addEventListener("mousemove", onClick, false);
 
-c.width  = window.innerWidth * .8;
+c.width  = window.innerWidth * .6;
 c.height = window.innerHeight;
 
 
@@ -76,9 +90,22 @@ function onClick(e) {
     console.log(x);
     console.log(y);
 
-    drawRectangle(x, y, 10, 10, "orange");
+    drawRectangle(x, y, 10, 10, curColor);
 
 }
+
+$(".basic").spectrum({
+    color: "#f00",
+    change: function(color) {
+
+        console.log("The new color is: " + color.toHexString());
+        curColor = color.toHexString();
+
+        // $("#basic-log").text("change called: " + color.toHexString());
+    }
+});
+
+    
 
 </script>
 
