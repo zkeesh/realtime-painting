@@ -9,6 +9,12 @@
 
   <script src="jquery-1.12.0.min.js">
 
+    $(".basic").spectrum({
+    color: "#f00",
+    change: function(color) {
+        $("#basic-log").text("change called: " + color.toHexString());
+    }
+});
 
 
 
@@ -23,6 +29,10 @@
 </head>
 
 <body>
+
+<h2>Basic Usage</h2>
+<input type='text' class="basic"/>
+<em id='basic-log'></em>
 
 <canvas id="myCanvas">
 </canvas>
