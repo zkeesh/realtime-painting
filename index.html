@@ -2,7 +2,8 @@
 
 <html lang="en">
 <head>
-  
+
+
   <meta charset="utf-8">
 
   <title>Draw Together</title>
@@ -29,7 +30,8 @@
     }
 
   </style>
-    
+   
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>  
   <script src='lib/jquery-1.12.3.min.js'></script>  
   <script src='lib/spectrum.js'></script>
   <link rel='stylesheet' href='lib/spectrum.css' />
@@ -49,12 +51,14 @@
 
 <script type="text/javascript">
 
+var myDataRef = new Firebase('https://realtimepainting.firebaseio.com/');
+
 var curColor = "orange"; // curColor is updated color of rectangle
 
 // getting element for canvas & set up mouse listener
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
-c.addEventListener("mousemove", onMove, false);
+c.addEventListener("click", onMove, false);
 
 // set width & height for canvas
 c.width  = window.innerWidth * .6;
@@ -66,6 +70,7 @@ c.height = window.innerHeight;
 function drawRectangle(x, y, width, height, color){
 	ctx.fillStyle = color;
 	ctx.fillRect(x,y,width,height);
+    // console.log("drawRectangle")
 }
 
 //mouse event for drawing rectanlges based on x & y coordinates
@@ -82,17 +87,27 @@ function onMove(e) {
 
     var x = e.pageX - offsetX;
     var y = e.pageY - offsetY;
-    console.log(x);
-    console.log(y);
 
-    drawRectangle(x, y, 10, 10, curColor);
-
+    //drawRectangle(x, y, 10, 10, curColor);
+    myDataRef.push({
+        x: x,
+        y: y,
+        width: 10,
+        height: 10,
+        color: curColor
+    })
 }
+
+myDataRef.on('child_added', function(snapshot) {
+    var rect = snapshot.val();
+    // console.log(rect);
+    drawRectangle(rect.x, rect.y, rect.width, rect.height, rect.color);
+});
 
 $(".basic").spectrum({
     color: curColor,
     change: function(color) {
-        console.log("The new color is: " + color.toHexString());
+        // console.log("The new color is: " + color.toHexString());
         curColor = color.toHexString();
     }
 });
