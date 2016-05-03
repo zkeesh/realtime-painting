@@ -58,7 +58,7 @@ var curColor = "orange"; // curColor is updated color of rectangle
 // getting element for canvas & set up mouse listener
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
-c.addEventListener("click", onMove, false);
+c.addEventListener("mousemove", onMove, false);
 
 // set width & height for canvas
 c.width  = window.innerWidth * .6;
