@@ -49,7 +49,7 @@
 
 <script type="text/javascript">
 
-var curColor = "green"; // curColor is updated color of rectangle
+var curColor = "orange"; // curColor is updated color of rectangle
 
 // getting element for canvas & set up mouse listener
 var c = document.getElementById("myCanvas");
@@ -90,7 +90,7 @@ function onMove(e) {
 }
 
 $(".basic").spectrum({
-    color: "#f00",
+    color: curColor,
     change: function(color) {
         console.log("The new color is: " + color.toHexString());
         curColor = color.toHexString();
